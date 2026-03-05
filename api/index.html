@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>namenu+ API — Early Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- beta banner -->
+<div id="beta-bar">
+  <span class="dot"></span>
+  namenu+ is currently in beta — endpoints and response shapes may change
+</div>
+
+<div class="page-wrap">
+  <!-- TOC (desktop only) -->
+  <aside class="toc">
+    <div class="toc-title">On this page</div>
+    <a href="#what">What is namenu+</a>
+    <a href="#auth">Authentication</a>
+    <a href="#endpoints">Endpoints</a>
+    <div class="toc-divider"></div>
+    <a href="#access">Get API access</a>
+  </aside>
+
+  <div class="main-content">
+    <div class="container">
+
+      <!-- header -->
+      <header>
+        <div class="logo-row">
+          <span class="logo-mark">namenu+</span>
+          <span class="beta-pill">Early Access Beta</span>
+        </div>
+        <h1>Lunch menus,<br><span class="accent">structured & accessible.</span></h1>
+        <p class="tagline">
+          namenu+ scrapes daily lunch menus from Slovak restaurants and exposes them
+          via a clean REST API. Filter by city, day, allergens, price, delivery — and build
+          things on top.
+        </p>
+        <div class="cta-row">
+          <a href="#access" class="btn-primary">↗ Get early access</a>
+          <a href="#endpoints" class="btn-ghost">View endpoints</a>
+        </div>
+      </header>
+
+      <!-- what is this -->
+      <section id="what">
+        <div class="section-label">overview</div>
+        <h2>What is namenu+?</h2>
+        <p>
+          namenu+ aggregates daily lunch menus published on <a href="https://namenu.sk" style="color:var(--text2)">namenu.sk</a>
+          and other sources into a structured, queryable API. Instead of manually checking
+          restaurant websites, you get clean JSON with dish names, prices, allergens,
+          nutritional info, and delivery availability.
+        </p>
+        <p>
+          Currently covering <strong style="color:var(--text)">Levice, Slovakia</strong> with more cities
+          being added as the project grows. The full week's menu is scraped every day —
+          so you can query Monday's menu on a Wednesday.
+        </p>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🗓</div>
+            <div class="feature-title">Full week coverage</div>
+            <div class="feature-desc">Query any day of the current week, not just today.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⚗</div>
+            <div class="feature-title">Allergen filtering</div>
+            <div class="feature-desc">14 standard EU allergens tracked per dish. Filter them out in the query.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🛵</div>
+            <div class="feature-title">Delivery aware</div>
+            <div class="feature-desc">Know which restaurants offer delivery before you even open the menu.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏗</div>
+            <div class="feature-title">Build anything</div>
+            <div class="feature-desc">Telegram bots, lunch pickers, office tools, mobile apps — it's just JSON.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- auth -->
+      <section id="auth">
+        <div class="section-label">authentication</div>
+        <h2>Authentication</h2>
+        <p>All API requests require an API key passed in the <code style="color:var(--blue)">Authorization</code> header.</p>
+        <div class="auth-box">
+          <div class="auth-title">Authorization header</div>
+          <p>Include your key with every request:</p>
+          <div class="code-block">GET https://api.namenuplus.toomcis.eu/api/levice/menu
+<span class="key">Authorization:</span> <span class="val">your_api_key_here</span></div>
+        </div>
+        <p style="margin-top:16px">Keys are personal and linked to your email. Don't share them. See the <a href="#access" style="color:var(--green)">Access section</a> below to request one.</p>
+      </section>
+
+      <!-- endpoints -->
+      <section id="endpoints">
+        <div class="section-label">reference</div>
+        <h2>API Endpoints</h2>
+
+        <div class="notice">
+          ⚠ Base URL: <strong>https://api.namenuplus.toomcis.eu</strong> — not yet publicly hosted.
+          Keys are issued now so you're ready when the server goes live.
+        </div>
+
+        <div class="endpoint-list">
+
+          <!-- cities -->
+          <div class="endpoint">
+            <div class="endpoint-header" onclick="toggleEndpoint(this)">
+              <span class="method get">GET</span>
+              <span class="endpoint-path">/api/cities</span>
+              <span class="endpoint-desc">List all available cities</span>
+            </div>
+            <div class="endpoint-body">
+              <p>Returns all cities that have been scraped at least once.</p>
+              <div class="code-block"><span class="dim">// GET /api/cities</span>
+[
+  { <span class="key">"id"</span>: <span class="val">1</span>, <span class="key">"name"</span>: <span class="str">"Levice"</span>, <span class="key">"slug"</span>: <span class="str">"levice"</span>, <span class="key">"url"</span>: <span class="str">"https://lv.namenu.sk/"</span> }
+]</div>
+            </div>
+          </div>
+
+          <!-- week -->
+          <div class="endpoint">
+            <div class="endpoint-header" onclick="toggleEndpoint(this)">
+              <span class="method get">GET</span>
+              <span class="endpoint-path">/api/{city}/week</span>
+              <span class="endpoint-desc">Which days have data this week</span>
+            </div>
+            <div class="endpoint-body">
+              <table class="param-table">
+                <thead><tr><th>param</th><th>type</th><th>description</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td class="param-name">city</td><td class="param-type">path</td><td class="param-desc">City slug e.g. <code>levice</code></td><td class="param-req">required</td></tr>
+                </tbody>
+              </table>
+              <div class="code-block"><span class="dim">// GET /api/levice/week</span>
+[
+  { <span class="key">"date"</span>: <span class="str">"2026-03-09"</span>, <span class="key">"has_data"</span>: <span class="val">true</span>,  <span class="key">"item_count"</span>: <span class="val">182</span> },
+  { <span class="key">"date"</span>: <span class="str">"2026-03-10"</span>, <span class="key">"has_data"</span>: <span class="val">true</span>,  <span class="key">"item_count"</span>: <span class="val">176</span> },
+  { <span class="key">"date"</span>: <span class="str">"2026-03-11"</span>, <span class="key">"has_data"</span>: <span class="val">false</span>, <span class="key">"item_count"</span>: <span class="val">0</span>   },
+  ...
+]</div>
+            </div>
+          </div>
+
+          <!-- restaurants -->
+          <div class="endpoint">
+            <div class="endpoint-header" onclick="toggleEndpoint(this)">
+              <span class="method get">GET</span>
+              <span class="endpoint-path">/api/{city}/restaurants</span>
+              <span class="endpoint-desc">List restaurants for a city</span>
+            </div>
+            <div class="endpoint-body">
+              <table class="param-table">
+                <thead><tr><th>param</th><th>type</th><th>description</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td class="param-name">city</td><td class="param-type">path</td><td class="param-desc">City slug</td><td class="param-req">required</td></tr>
+                  <tr><td class="param-name">date</td><td class="param-type">query</td><td class="param-desc">YYYY-MM-DD, defaults to today</td><td class="param-opt">optional</td></tr>
+                  <tr><td class="param-name">delivery</td><td class="param-type">query</td><td class="param-desc">true/false — filter by delivery</td><td class="param-opt">optional</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- single restaurant -->
+          <div class="endpoint">
+            <div class="endpoint-header" onclick="toggleEndpoint(this)">
+              <span class="method get">GET</span>
+              <span class="endpoint-path">/api/{city}/restaurants/{slug}</span>
+              <span class="endpoint-desc">Full menu for one restaurant</span>
+            </div>
+            <div class="endpoint-body">
+              <table class="param-table">
+                <thead><tr><th>param</th><th>type</th><th>description</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td class="param-name">city</td><td class="param-type">path</td><td class="param-desc">City slug</td><td class="param-req">required</td></tr>
+                  <tr><td class="param-name">slug</td><td class="param-type">path</td><td class="param-desc">Restaurant slug</td><td class="param-req">required</td></tr>
+                  <tr><td class="param-name">date</td><td class="param-type">query</td><td class="param-desc">YYYY-MM-DD, defaults to today</td><td class="param-opt">optional</td></tr>
+                </tbody>
+              </table>
+              <div class="code-block"><span class="dim">// GET /api/levice/restaurants/restauracia-moja</span>
+{
+  <span class="key">"name"</span>: <span class="str">"Reštaurácia Moja"</span>,
+  <span class="key">"delivery"</span>: <span class="val">true</span>,
+  <span class="key">"address"</span>: <span class="str">"Ul. Sv. Michala 12, Levice"</span>,
+  <span class="key">"menu"</span>: [
+    {
+      <span class="key">"type"</span>: <span class="str">"soup"</span>,
+      <span class="key">"name"</span>: <span class="str">"Paradajková polievka"</span>,
+      <span class="key">"price_eur"</span>: <span class="val">1.40</span>,
+      <span class="key">"allergens"</span>: [<span class="val">1</span>, <span class="val">7</span>],
+      <span class="key">"nutrition"</span>: { <span class="key">"kcal"</span>: <span class="val">180</span>, <span class="key">"protein_g"</span>: <span class="val">4</span> }
+    }
+  ]
+}</div>
+            </div>
+          </div>
+
+          <!-- menu -->
+          <div class="endpoint">
+            <div class="endpoint-header" onclick="toggleEndpoint(this)">
+              <span class="method get">GET</span>
+              <span class="endpoint-path">/api/{city}/menu</span>
+              <span class="endpoint-desc">All dishes across all restaurants — filterable</span>
+            </div>
+            <div class="endpoint-body">
+              <table class="param-table">
+                <thead><tr><th>param</th><th>type</th><th>description</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td class="param-name">city</td><td class="param-type">path</td><td class="param-desc">City slug</td><td class="param-req">required</td></tr>
+                  <tr><td class="param-name">date</td><td class="param-type">query</td><td class="param-desc">YYYY-MM-DD, defaults to today</td><td class="param-opt">optional</td></tr>
+                  <tr><td class="param-name">type</td><td class="param-type">query</td><td class="param-desc"><code>soup</code> / <code>main</code> / <code>dessert</code></td><td class="param-opt">optional</td></tr>
+                  <tr><td class="param-name">delivery</td><td class="param-type">query</td><td class="param-desc">true/false</td><td class="param-opt">optional</td></tr>
+                  <tr><td class="param-name">max_price</td><td class="param-type">query</td><td class="param-desc">Max price in EUR</td><td class="param-opt">optional</td></tr>
+                  <tr><td class="param-name">exclude_allergens</td><td class="param-type">query</td><td class="param-desc">Comma-separated allergen numbers e.g. <code>1,7,14</code></td><td class="param-opt">optional</td></tr>
+                  <tr><td class="param-name">limit</td><td class="param-type">query</td><td class="param-desc">Max results, default 50, max 200</td><td class="param-opt">optional</td></tr>
+                  <tr><td class="param-name">offset</td><td class="param-type">query</td><td class="param-desc">Pagination offset</td><td class="param-opt">optional</td></tr>
+                </tbody>
+              </table>
+              <div class="code-block"><span class="dim">// GET /api/levice/menu?type=soup&max_price=2.00&exclude_allergens=7</span>
+{
+  <span class="key">"date"</span>: <span class="str">"2026-03-05"</span>,
+  <span class="key">"count"</span>: <span class="val">14</span>,
+  <span class="key">"offset"</span>: <span class="val">0</span>,
+  <span class="key">"results"</span>: [ <span class="dim">...</span> ]
+}</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- access -->
+      <section id="access">
+        <div class="section-label">access</div>
+        <h2>Get API Access</h2>
+        <p>
+          namenu+ is currently in <strong style="color:var(--amber)">early access beta</strong>.
+          Keys are issued manually — send a request email and you'll get a key linked to your address
+          within a day or two.
+        </p>
+        <div class="access-box">
+          <div class="early-tag">✦ Early Access</div>
+          <h3>Request your API key</h3>
+          <p>Tell us what you're building. Keys are free during beta. One key per developer.</p>
+          <a id="access-btn" href="#" class="btn-primary" onclick="openMailto(event)">
+            ✉ Request early access
+          </a>
+          <div class="access-note">
+            Sends a pre-filled email to contact@toomcis.eu — just hit send.
+          </div>
+        </div>
+      </section>
+
+      <!-- footer -->
+      <footer>
+        <span>namenu+ beta · <a href="https://github.com/toomcis/namenuPlus">github</a> · made in Levice 🇸🇰</span>
+        <span><a href="mailto:contact@toomcis.eu">contact@toomcis.eu</a></span>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

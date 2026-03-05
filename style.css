@@ -1,0 +1,109 @@
+:root {
+  --bg:        #0a0a0a;
+  --green:     #4ade80;
+  --green-dim: #1a3a28;
+  --green-bg:  #0f2018;
+  --text:      #d8d8d8;
+  --text2:     #666;
+  --text3:     #333;
+  --amber:     #fbbf24;
+  --border:    #1e1e1e;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Syne', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--mono);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  /* subtle grid texture */
+  background-image: linear-gradient(rgba(74,222,128,0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(74,222,128,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.wrap {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: fadein 0.6s ease both;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.logo {
+  font-family: var(--sans);
+  font-size: clamp(36px, 10vw, 64px);
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -2px;
+  line-height: 1;
+  text-shadow: 0 0 60px rgba(74,222,128,0.2);
+}
+
+.pill {
+  font-size: clamp(9px, 2.5vw, 11px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: rgba(251,191,36,0.08);
+  border: 1px solid rgba(251,191,36,0.25);
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+
+.sub {
+  font-size: clamp(11px, 3vw, 13px);
+  color: var(--text2);
+  letter-spacing: 0.5px;
+}
+
+.dots::after {
+  content: '';
+  animation: ellipsis 1.5s steps(4, end) infinite;
+}
+@keyframes ellipsis {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
+}
+
+.btn {
+  font-family: var(--mono);
+  font-size: clamp(12px, 3vw, 13px);
+  padding: 11px 28px;
+  background: var(--green-bg);
+  border: 1px solid var(--green-dim);
+  color: var(--green);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.15s;
+  margin-top: 8px;
+}
+.btn:hover {
+  background: var(--green);
+  color: #000;
+  border-color: var(--green);
+}
+
+/* ── mobile tweaks ── */
+@media (max-width: 400px) {
+  body { padding: 16px; }
+  .logo { letter-spacing: -1px; }
+  .btn { padding: 10px 22px; width: 100%; text-align: center; }
+}
