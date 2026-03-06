@@ -34,5 +34,5 @@ To add a new language (e.g. Polish), drop `pl.json` into both `locales/` and `ap
 
 ## Related
 - **API server repo:** [toomcis/namenuPlus](https://github.com/toomcis/namenuPlus)
-- **API base URL:** `https://api.namenuplus.toomcis.eu` *(coming soon)*
+- **API base URL:** `https://api.toomcis.eu`
 - **Contact:** [contact@toomcis.eu](mailto:contact@toomcis.eu)
