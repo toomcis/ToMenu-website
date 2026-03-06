@@ -33,7 +33,7 @@
 
   "ep.label":           "reference",
   "ep.title":           "API Endpointy",
-  "ep.notice":          "⚠ Základní URL: <strong>https://api.namenuplus.toomcis.eu</strong> — zatím není veřejně dostupná. Klíče jsou vydávány nyní, abys byl připraven až server spustíme.",
+  "ep.notice":          "Základní URL: <strong>https://api.toomcis.eu</strong>",
   "ep.cities.desc":     "Seznam dostupných měst",
   "ep.cities.p":        "Vrátí všechna města, která byla alespoň jednou scrapována.",
   "ep.week.desc":       "Které dny mají data tento týden",

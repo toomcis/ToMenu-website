@@ -6,7 +6,7 @@
   "toc.endpoints":      "Endpoints",
   "toc.access":         "Get API access",
 
-  "hero.title":         "Lunch menus,<br><span class=\"accent\">structured & accessible.</span>",
+  "hero.title":         "Lunch menus,<br><span class=\"accent\">structured &amp; accessible.</span>",
   "hero.tagline":       "namenu+ scrapes daily lunch menus from Slovak restaurants and exposes them via a clean REST API. Filter by city, day, allergens, price, delivery — and build things on top.",
   "hero.cta_primary":   "↗ Get early access",
   "hero.cta_secondary": "View endpoints",
@@ -33,7 +33,7 @@
 
   "ep.label":           "reference",
   "ep.title":           "API Endpoints",
-  "ep.notice":          "⚠ Base URL: <strong>https://api.namenuplus.toomcis.eu</strong> — not yet publicly hosted. Keys are issued now so you're ready when the server goes live.",
+  "ep.notice":          "Base URL: <strong>https://api.toomcis.eu</strong>",
   "ep.cities.desc":     "List all available cities",
   "ep.cities.p":        "Returns all cities that have been scraped at least once.",
   "ep.week.desc":       "Which days have data this week",
