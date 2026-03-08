@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ToMenu — Je to TO menu ktoré potrebuješ</title>
-<meta name="description" content="ToMenu unifies all restaurant lunch menus into one app. Advanced filters, privacy-first, free and ad-free.">
+<title>ToMenu — Obedové menu všetkých reštaurácií na jednom mieste</title>
+<meta name="description" content="ToMenu zbiera obedové menu reštaurácií z celého Slovenska do jednej aplikácie. GPS triedenie, pokročilé filtre, bez reklám, zadarmo. Stiahni APK pre Android.">
+<meta name="keywords" content="obedové menu, reštaurácie, obed, Levice, Slovensko, ToMenu, lunch menu, jedálny lístok">
+<meta name="author" content="ToMenu">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tomenu.sk/">
+
+<!-- Open Graph -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://tomenu.sk/">
+<meta property="og:title"       content="ToMenu — Obedové menu všetkých reštaurácií na jednom mieste">
+<meta property="og:description" content="ToMenu zbiera obedové menu reštaurácií z celého Slovenska do jednej aplikácie. GPS triedenie, pokročilé filtre, bez reklám, zadarmo.">
+<meta property="og:image"       content="https://tomenu.sk/og-image.png">
+<meta property="og:locale"      content="sk_SK">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:site_name"   content="ToMenu">
+
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="ToMenu — Obedové menu všetkých reštaurácií">
+<meta name="twitter:description" content="GPS triedenie, pokročilé filtre, bez reklám, zadarmo. Pre Android.">
+<meta name="twitter:image"       content="https://tomenu.sk/og-image.png">
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "ToMenu",
+  "description": "ToMenu zbiera obedové menu reštaurácií z celého Slovenska do jednej aplikácie.",
+  "url": "https://tomenu.sk",
+  "applicationCategory": "FoodApplication",
+  "operatingSystem": "Android",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "author": { "@type": "Person", "name": "Tomáš Hnilický" },
+  "inLanguage": "sk"
+}
+</script>
+
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -168,8 +205,17 @@
 
   <!-- ── FOOTER ── -->
   <footer>
-    <span data-i18n="footer.left">ToMenu beta · <a href="https://github.com/toomcis/tomenu-app">github</a> · made in Levice 🇸🇰</span>
-    <span><a href="mailto:contact@tomenu.sk">contact@tomenu.sk</a></span>
+    <div class="footer-main">
+      <span data-i18n="footer.left">ToMenu beta · <a href="https://github.com/toomcis/tomenu-app">github</a> · made in Levice 🇸🇰</span>
+      <span><a href="mailto:contact@tomenu.sk">contact@tomenu.sk</a></span>
+    </div>
+    <div class="footer-legal">
+      <a href="/privacy">Zásady ochrany súkromia</a>
+      <span class="sep">·</span>
+      <a href="/tos">Podmienky používania</a>
+      <span class="sep">·</span>
+      <a href="/deletion">Vymazanie údajov</a>
+    </div>
   </footer>
 
 </div>

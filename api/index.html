@@ -1,9 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ToMenu API — Early Access</title>
+<title>ToMenu API — REST API pre obedové menu reštaurácií</title>
+<meta name="description" content="ToMenu REST API — získajte obedové menu slovenských reštaurácií ako štruktúrovaný JSON. Filtrovanie podľa mesta, dňa, alergénov, ceny a dovozu. Zadarmo počas bety.">
+<meta name="keywords" content="ToMenu API, REST API, obedové menu API, reštaurácie API, Slovensko, lunch menu JSON">
+<meta name="author" content="ToMenu">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tomenu.sk/api">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://tomenu.sk/api">
+<meta property="og:title"       content="ToMenu API — REST API pre obedové menu reštaurácií">
+<meta property="og:description" content="Filtrovanie podľa mesta, dňa, alergénov, ceny a dovozu. Čistý JSON. Zadarmo počas bety.">
+<meta property="og:image"       content="https://tomenu.sk/og-image.png">
+<meta property="og:locale"      content="sk_SK">
+<meta property="og:site_name"   content="ToMenu">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="ToMenu API — Obedové menu ako JSON">
+<meta name="twitter:description" content="REST API pre obedové menu slovenských reštaurácií. Zadarmo počas bety.">
+<meta name="twitter:image"       content="https://tomenu.sk/og-image.png">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -90,7 +106,6 @@
         <div class="section-label" data-i18n="ep.label">reference</div>
         <h2 data-i18n="ep.title">API Endpoints</h2>
         <div class="notice" data-i18n="ep.notice">⚠ Base URL: <strong>https://api.tomenu.sk</strong></div>
-
         <div class="endpoint-list">
 
           <div class="endpoint">
@@ -125,8 +140,7 @@
 [
   { <span class="key">"date"</span>: <span class="str">"2026-03-09"</span>, <span class="key">"has_data"</span>: <span class="val">true</span>,  <span class="key">"item_count"</span>: <span class="val">182</span> },
   { <span class="key">"date"</span>: <span class="str">"2026-03-10"</span>, <span class="key">"has_data"</span>: <span class="val">true</span>,  <span class="key">"item_count"</span>: <span class="val">176</span> },
-  { <span class="key">"date"</span>: <span class="str">"2026-03-11"</span>, <span class="key">"has_data"</span>: <span class="val">false</span>, <span class="key">"item_count"</span>: <span class="val">0</span>   },
-  ...
+  { <span class="key">"date"</span>: <span class="str">"2026-03-11"</span>, <span class="key">"has_data"</span>: <span class="val">false</span>, <span class="key">"item_count"</span>: <span class="val">0</span>   }
 ]</div>
             </div>
           </div>
@@ -164,21 +178,6 @@
                   <tr><td class="param-name">date</td><td class="param-type">query</td><td class="param-desc" data-i18n="param.date">YYYY-MM-DD, defaults to today</td><td class="param-opt" data-i18n="param.optional">optional</td></tr>
                 </tbody>
               </table>
-              <div class="code-block"><span class="dim">// GET /api/levice/restaurants/restauracia-moja</span>
-{
-  <span class="key">"name"</span>: <span class="str">"Reštaurácia Moja"</span>,
-  <span class="key">"delivery"</span>: <span class="val">true</span>,
-  <span class="key">"address"</span>: <span class="str">"Ul. Sv. Michala 12, Levice"</span>,
-  <span class="key">"menu"</span>: [
-    {
-      <span class="key">"type"</span>: <span class="str">"soup"</span>,
-      <span class="key">"name"</span>: <span class="str">"Paradajková polievka"</span>,
-      <span class="key">"price_eur"</span>: <span class="val">1.40</span>,
-      <span class="key">"allergens"</span>: [<span class="val">1</span>, <span class="val">7</span>],
-      <span class="key">"nutrition"</span>: { <span class="key">"kcal"</span>: <span class="val">180</span>, <span class="key">"protein_g"</span>: <span class="val">4</span> }
-    }
-  ]
-}</div>
             </div>
           </div>
 
@@ -202,13 +201,6 @@
                   <tr><td class="param-name">offset</td><td class="param-type">query</td><td class="param-desc" data-i18n="param.offset">Pagination offset</td><td class="param-opt" data-i18n="param.optional">optional</td></tr>
                 </tbody>
               </table>
-              <div class="code-block"><span class="dim">// GET /api/levice/menu?type=soup&max_price=2.00&exclude_allergens=7</span>
-{
-  <span class="key">"date"</span>: <span class="str">"2026-03-05"</span>,
-  <span class="key">"count"</span>: <span class="val">14</span>,
-  <span class="key">"offset"</span>: <span class="val">0</span>,
-  <span class="key">"results"</span>: [ <span class="dim">...</span> ]
-}</div>
             </div>
           </div>
 
@@ -229,8 +221,17 @@
       </section>
 
       <footer>
-        <span data-i18n="footer.left">ToMenu beta · <a href="https://github.com/toomcis/ToMenu-backend">github</a> · made in Levice 🇸🇰</span>
-        <span><a href="mailto:contact@tomenu.sk">contact@tomenu.sk</a></span>
+        <div class="footer-main">
+          <span data-i18n="footer.left">ToMenu beta · <a href="https://github.com/toomcis/ToMenu-backend">github</a> · made in Levice 🇸🇰</span>
+          <span><a href="mailto:contact@tomenu.sk">contact@tomenu.sk</a></span>
+        </div>
+        <div class="footer-legal">
+          <a href="/privacy">Zásady ochrany súkromia</a>
+          <span class="sep">·</span>
+          <a href="/tos">Podmienky používania</a>
+          <span class="sep">·</span>
+          <a href="/deletion">Vymazanie údajov</a>
+        </div>
       </footer>
 
     </div>
