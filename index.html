@@ -9,8 +9,6 @@
 <meta name="author" content="ToMenu">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://tomenu.sk/">
-
-<!-- Open Graph -->
 <meta property="og:type"        content="website">
 <meta property="og:url"         content="https://tomenu.sk/">
 <meta property="og:title"       content="ToMenu — Obedové menu všetkých reštaurácií na jednom mieste">
@@ -19,42 +17,490 @@
 <meta property="og:locale"      content="sk_SK">
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:site_name"   content="ToMenu">
-
-<!-- Twitter Card -->
 <meta name="twitter:card"        content="summary_large_image">
 <meta name="twitter:title"       content="ToMenu — Obedové menu všetkých reštaurácií">
 <meta name="twitter:description" content="GPS triedenie, pokročilé filtre, bez reklám, zadarmo. Pre Android.">
 <meta name="twitter:image"       content="https://tomenu.sk/og-image.png">
-
-<!-- Schema.org structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "MobileApplication",
   "name": "ToMenu",
-  "description": "ToMenu zbiera obedové menu reštaurácií z celého Slovenska do jednej aplikácie.",
+  "description": "ToMenu zbiera obedové menu reštaurácií z celého Slovenska do jednej aplikácie. GPS triedenie, pokročilé filtre, bez reklám, zadarmo.",
   "url": "https://tomenu.sk",
+  "downloadUrl": "https://tomenu.sk/app/tomenu.apk",
   "applicationCategory": "FoodApplication",
-  "operatingSystem": "Android",
+  "operatingSystem": "Android 8.0+",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
   "author": { "@type": "Person", "name": "Tomáš Hnilický" },
-  "inLanguage": "sk"
+  "inLanguage": "sk",
+  "countryOfOrigin": "SK",
+  "screenshot": "https://tomenu.sk/og-image.png",
+  "featureList": "GPS triedenie, filtre alergénov, týždenné menu, obedové upozornenia, swipe odporúčania",
+  "softwareVersion": "1.0",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "ratingCount": "1",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
 }
 </script>
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ToMenu",
+  "url": "https://tomenu.sk",
+  "logo": "https://tomenu.sk/favicon.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "availableLanguage": ["Slovak", "Czech", "English"]
+  }
+}
+</script>
 <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#3d9e5f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ToMenu">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Fraunces:ital,wght@0,900;1,900&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Fraunces:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Root ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+:root {
+  --bg:        #0c0e0d;
+  --bg1:       #131715;
+  --bg2:       #181c1a;
+  --bg3:       #1e2420;
+  --border:    #252b27;
+  --border2:   #2f3832;
+  --text:      #e8ede9;
+  --text2:     #8fa092;
+  --text3:     #4a5550;
+  --green:     #52e07c;
+  --green2:    #3dba62;
+  --green-dim: #1a3526;
+  --green-bg:  #0d1f14;
+  --amber:     #f5c842;
+  --red:       #f87171;
+  --sans: 'DM Sans', sans-serif;
+  --serif: 'Fraunces', serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Beta bar ── */
+#beta-bar {
+  background: var(--green-bg);
+  border-bottom: 1px solid var(--green-dim);
+  padding: 9px 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--green);
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+#beta-bar .dot {
+  display: inline-block; width: 7px; height: 7px;
+  border-radius: 50%; background: var(--green);
+  margin-right: 8px; vertical-align: middle;
+  box-shadow: 0 0 8px var(--green);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+/* ── Lang toggle ── */
+#lang-toggle {
+  position: fixed; top: 46px; right: 20px; z-index: 300;
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.5px; padding: 6px 12px;
+  background: var(--bg2); border: 1px solid var(--border2);
+  color: var(--text2); border-radius: 6px; cursor: pointer;
+  transition: all 0.15s;
+}
+#lang-toggle:hover { border-color: var(--green); color: var(--green); }
+
+/* ── Layout ── */
+.page-wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 100px; }
+
+/* ── Hero ── */
+header {
+  padding: 80px 0 72px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  animation: fadein 0.6s ease both;
+}
+@keyframes fadein { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.logo-row {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 36px;
+}
+.logo-mark {
+  font-family: var(--serif); font-size: 30px; font-weight: 900;
+  color: var(--green); letter-spacing: -0.5px;
+}
+.beta-pill {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+  color: var(--amber); background: rgba(245,200,66,0.1);
+  border: 1px solid rgba(245,200,66,0.3);
+  padding: 3px 10px; border-radius: 20px;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 7vw, 64px);
+  font-weight: 900; line-height: 1.05;
+  color: #fff; margin-bottom: 22px; letter-spacing: -1.5px;
+}
+h1 .accent { color: var(--green); font-style: italic; }
+
+.hero-lead {
+  font-size: clamp(15px, 2.5vw, 17px);
+  color: var(--text2); max-width: 520px;
+  line-height: 1.75; margin-bottom: 40px;
+  font-weight: 400;
+}
+
+/* ── Stats row ── */
+.stats-row {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  margin-bottom: 44px; padding-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+}
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-num {
+  font-family: var(--serif); font-size: 28px; font-weight: 900;
+  color: var(--green); line-height: 1;
+}
+.stat-label { font-size: 12px; color: var(--text3); font-weight: 500; }
+
+/* ── Download section (hero) ── */
+.download-hero {
+  display: flex; flex-direction: column; gap: 14px; align-items: flex-start;
+}
+.btn-download {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--sans); font-size: 16px; font-weight: 700;
+  padding: 16px 30px;
+  background: var(--green); color: #071209;
+  border: none; border-radius: 10px; cursor: pointer;
+  text-decoration: none; transition: all 0.2s;
+  box-shadow: 0 4px 24px rgba(82,224,124,0.25);
+  letter-spacing: -0.2px;
+}
+.btn-download:hover {
+  background: #6aeD90; transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(82,224,124,0.35);
+}
+.btn-download svg { flex-shrink: 0; }
+
+.download-meta {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; color: var(--text3); flex-wrap: wrap;
+}
+.download-meta span { display: flex; align-items: center; gap: 5px; }
+
+.btn-ghost {
+  font-family: var(--sans); font-size: 13px; font-weight: 500;
+  padding: 11px 20px; background: transparent; color: var(--text2);
+  border: 1px solid var(--border2); border-radius: 8px;
+  cursor: pointer; text-decoration: none; transition: all 0.15s;
+}
+.btn-ghost:hover { border-color: var(--green); color: var(--text); }
+
+/* ── Sections ── */
+section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+
+.section-eyebrow {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--green); font-weight: 600; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--green); }
+
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 900; color: #fff;
+  margin-bottom: 14px; letter-spacing: -0.5px; line-height: 1.15;
+}
+.section-sub {
+  font-size: 15px; color: var(--text2); line-height: 1.75;
+  max-width: 560px; margin-bottom: 48px;
+}
+
+/* ── Feature grid ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.feature-card {
+  background: var(--bg1); border: 1px solid var(--border);
+  border-radius: 12px; padding: 26px 24px; transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+.feature-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
+  opacity: 0; transition: opacity 0.2s;
+}
+.feature-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.feature-card:hover::before { opacity: 1; }
+.feature-icon { font-size: 26px; margin-bottom: 16px; }
+.feature-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.feature-desc { font-size: 13px; color: var(--text2); line-height: 1.65; }
+
+/* ── FYP block layout ── */
+.fyp-block {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: center;
+}
+@media (max-width: 680px) { .fyp-block { grid-template-columns: 1fr; } }
+
+/* ── FYP Interactive Demo ── */
+.fyp-visual {
+  background: var(--bg1); border: 1px solid var(--border);
+  border-radius: 20px; padding: 28px 24px 20px;
+  display: flex; flex-direction: column; gap: 16px;
+  align-items: center; user-select: none;
+}
+.fyp-label {
+  font-size: 10px; color: var(--text3); letter-spacing: 2px;
+  text-transform: uppercase; font-weight: 600;
+}
+.swipe-deck {
+  position: relative; width: 100%; max-width: 260px; height: 200px;
+}
+.swipe-card {
+  position: absolute; inset: 0;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 18px; padding: 24px 20px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 8px; text-align: center;
+  cursor: grab; touch-action: pan-y;
+  will-change: transform;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.swipe-card:active { cursor: grabbing; }
+
+.dish-emoji { font-size: 44px; line-height: 1; }
+.dish-name { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; }
+.dish-rest { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.dish-price { font-size: 13px; font-weight: 700; color: var(--green); margin-top: 4px; }
+
+.swipe-actions {
+  display: flex; gap: 20px; align-items: center;
+}
+.swipe-btn {
+  width: 58px; height: 58px; border-radius: 50%; border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.18s; outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.swipe-btn:active { transform: scale(0.88); }
+.swipe-no {
+  background: rgba(248,113,113,0.1); border: 2px solid rgba(248,113,113,0.35) !important;
+  color: var(--red);
+}
+.swipe-no:hover { background: rgba(248,113,113,0.2); transform: scale(1.08); }
+.swipe-yes {
+  background: rgba(82,224,124,0.12); border: 2px solid rgba(82,224,124,0.4) !important;
+  color: var(--green); width: 66px; height: 66px;
+  box-shadow: 0 0 20px rgba(82,224,124,0.15);
+}
+.swipe-yes:hover { background: rgba(82,224,124,0.22); transform: scale(1.08); box-shadow: 0 0 28px rgba(82,224,124,0.3); }
+
+.swipe-score {
+  display: flex; gap: 12px; font-size: 12px; font-weight: 600;
+}
+.score-no { color: var(--red); opacity: 0.7; }
+.score-yes { color: var(--green); opacity: 0.8; }
+.score-sep { color: var(--text3); }
+
+.swipe-hint {
+  font-size: 11px; color: var(--text3); letter-spacing: 0.5px;
+}
+
+/* Like/Nope badges — opacity driven by JS inline style */
+.swipe-card .like-badge, .swipe-card .nope-badge {
+  position: absolute; top: 16px;
+  font-size: 13px; font-weight: 800; letter-spacing: 2px;
+  padding: 5px 12px; border-radius: 6px; opacity: 0;
+  pointer-events: none; text-transform: uppercase;
+  transition: opacity 0.1s;
+}
+.swipe-card .like-badge { right: 14px; color: var(--green); border: 2px solid var(--green); transform: rotate(12deg); }
+.swipe-card .nope-badge { left:  14px; color: var(--red);   border: 2px solid var(--red);   transform: rotate(-12deg); }
+
+
+/* ── How it works ── */
+.steps { display: flex; flex-direction: column; }
+.step {
+  display: grid; grid-template-columns: 56px 1fr; gap: 24px;
+  padding: 28px 0; border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  font-family: var(--serif); font-size: 42px; font-weight: 900;
+  color: var(--green-dim); line-height: 1; padding-top: 2px;
+}
+.step-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.step-desc { font-size: 13px; color: var(--text2); line-height: 1.7; }
+
+/* ── Privacy ── */
+.privacy-grid { display: flex; flex-direction: column; }
+.privacy-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 18px 0; border-bottom: 1px solid var(--border);
+  font-size: 14px; color: var(--text2);
+}
+.privacy-item:last-child { border-bottom: none; }
+.priv-icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(82,224,124,0.1); border: 1px solid var(--green-dim);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green); font-size: 14px; flex-shrink: 0; margin-top: 1px;
+}
+
+/* ── API box ── */
+.api-box {
+  background: var(--bg1); border: 1px solid var(--border);
+  border-left: 3px solid var(--green); border-radius: 10px;
+  padding: 28px; margin-top: 24px;
+}
+.code-block {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 6px; padding: 16px 18px; font-size: 12px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: var(--green); overflow-x: auto; white-space: pre; line-height: 1.7;
+  margin-bottom: 16px;
+}
+.code-block .dim { color: var(--text3); }
+.code-block .key { color: #60a5fa; }
+
+/* ── Cities pill list ── */
+.cities-row {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px;
+}
+.city-pill {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 12px; font-weight: 500; color: var(--text2);
+  display: flex; align-items: center; gap: 6px;
+}
+.city-pill.active { background: var(--green-bg); border-color: var(--green-dim); color: var(--green); }
+.city-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+/* ── For devs note ── */
+.dev-note {
+  margin-top: 24px; padding: 16px 20px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; font-size: 12px; color: var(--text3);
+  line-height: 1.6;
+}
+.dev-note a { color: var(--text2); }
+.dev-note a:hover { color: var(--green); }
+
+/* ── Footer ── */
+footer {
+  padding: 48px 0 0;
+  font-size: 12px; color: var(--text3);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.footer-main { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.footer-main a { color: var(--text3); text-decoration: none; }
+.footer-main a:hover { color: var(--text2); }
+.footer-legal { display: flex; gap: 8px; flex-wrap: wrap; opacity: 0.6; }
+.footer-legal a { color: inherit; text-decoration: none; }
+.footer-legal a:hover { opacity: 1; text-decoration: underline; color: var(--text2); }
+.footer-legal .sep { opacity: 0.4; }
+
+/* ── Slogan animation ── */
+#slogan-h1 {
+  min-height: 1.3em;
+}
+#slogan-text {
+  font-family: var(--serif);
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: #fff;
+  font-style: italic;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  display: block;
+}
+#slogan-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 768px) {
+  #slogan-text { font-size: 44px; letter-spacing: -1px; }
+}
+@media (max-width: 480px) {
+  #slogan-text { font-size: 36px; letter-spacing: -0.5px; }
+}
+@media (max-width: 360px) {
+  #slogan-text { font-size: 30px; }
+}
+
+@media (max-width: 640px) {
+  .page-wrap { padding: 0 18px 60px; }
+  header { padding: 48px 0 48px; }
+  h1 { font-size: 34px; letter-spacing: -1px; }
+  .hero-lead { font-size: 14px; }
+  .stats-row { gap: 20px; }
+  .stat-num { font-size: 24px; }
+  .btn-download { font-size: 15px; padding: 14px 24px; }
+  section { padding: 52px 0; }
+  h2 { font-size: 24px; }
+  .feature-grid { grid-template-columns: 1fr; gap: 10px; }
+  .step { grid-template-columns: 44px 1fr; gap: 16px; }
+  .step-num { font-size: 32px; }
+  footer { flex-direction: column; text-align: center; }
+  #lang-toggle { top: 42px; right: 12px; font-size: 11px; padding: 5px 9px; }
+}
+@media (max-width: 400px) {
+  h1 { font-size: 28px; }
+  .logo-mark { font-size: 24px; }
+}
+</style>
 </head>
 <body>
 
 <div id="beta-bar">
   <span class="dot"></span>
-  <span data-i18n="beta.bar">ToMenu is currently in early access beta</span>
+  <span data-i18n="beta.bar">ToMenu je momentálne v beta verzii</span>
 </div>
 
-<button id="lang-toggle" onclick="toggleLang()">EN</button>
+<button id="lang-toggle" onclick="toggleLang()">SK</button>
 
 <div class="page-wrap">
 
@@ -62,151 +508,241 @@
   <header>
     <div class="logo-row">
       <span class="logo-mark">ToMenu</span>
-      <span class="beta-pill" data-i18n="hero.pill">Early Access Beta</span>
+      <span class="beta-pill" data-i18n="hero.pill">Beta</span>
     </div>
-    <h1 data-i18n="hero.title">Je to <span class="accent">TO menu</span><br>ktoré potrebuješ.</h1>
-    <p class="tagline" data-i18n="hero.tagline">ToMenu brings every restaurant's daily lunch menu into one app. Advanced filters, GPS sorting, privacy-first, completely free and ad-free.</p>
-    <div class="cta-row">
-      <a href="#download" class="btn-primary" data-i18n="hero.cta_primary">↓ Download the app</a>
-      <a href="/api"      class="btn-ghost"   data-i18n="hero.cta_api">API docs →</a>
-    </div>
-    <div class="hero-sub" data-i18n="hero.sub">Available for Android · Slovakia 🇸🇰</div>
-  </header>
+    <h1 id="slogan-h1" aria-live="polite">
+      <span id="slogan-text" class="accent"></span>
+    </h1>
+    <p class="hero-lead" data-i18n="hero.lead">ToMenu zbiera obedové menu zo všetkých reštaurácií vo vašom meste. Vidíte ceny, alergény, možnosť dovozu — všetko na jednom mieste. Zadarmo, bez reklám.</p>
 
-  <!-- ── FEATURES ── -->
-  <section id="features">
-    <div class="section-label" data-i18n="feat.label">why tomenu</div>
-    <h2 data-i18n="feat.title">Everything you need to pick lunch.</h2>
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-icon">📍</div>
-        <div class="feature-title" data-i18n="feat.gps.title">GPS sorted</div>
-        <div class="feature-desc"  data-i18n="feat.gps.desc">Restaurants sorted by distance from you. Closest first, always.</div>
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-num" data-i18n="stat.restaurants">30+</span>
+        <span class="stat-label" data-i18n="stat.restaurants.label">reštaurácií</span>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔍</div>
-        <div class="feature-title" data-i18n="feat.search.title">Dish search</div>
-        <div class="feature-desc"  data-i18n="feat.search.desc">Search for a specific dish across all restaurants at once. Find schnitzel, goulash, whatever you're craving.</div>
+      <div class="stat">
+        <span class="stat-num" data-i18n="stat.dishes">200+</span>
+        <span class="stat-label" data-i18n="stat.dishes.label">jedál denne</span>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚗</div>
-        <div class="feature-title" data-i18n="feat.filter.title">Advanced filters</div>
-        <div class="feature-desc"  data-i18n="feat.filter.desc">Filter by price, weight, allergens, delivery. Even sort by best price-to-portion ratio.</div>
+      <div class="stat">
+        <span class="stat-num" data-i18n="stat.cities">1</span>
+        <span class="stat-label" data-i18n="stat.cities.label">mesto (zatiaľ)</span>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🛵</div>
-        <div class="feature-title" data-i18n="feat.delivery.title">Delivery aware</div>
-        <div class="feature-desc"  data-i18n="feat.delivery.desc">Know which restaurants deliver before you even open the menu.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <div class="feature-title" data-i18n="feat.privacy.title">Privacy first</div>
-        <div class="feature-desc"  data-i18n="feat.privacy.desc">No tracking, no ads, no mandatory account. Everything opt-in. Even fully self-hostable.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📅</div>
-        <div class="feature-title" data-i18n="feat.week.title">Full week</div>
-        <div class="feature-desc"  data-i18n="feat.week.desc">Browse Monday's menu on a Wednesday. Plan ahead, not just today.</div>
+      <div class="stat">
+        <span class="stat-num" data-i18n="stat.price">0 €</span>
+        <span class="stat-label" data-i18n="stat.price.label">zadarmo navždy</span>
       </div>
     </div>
-  </section>
+
+    <!-- Download -->
+    <div class="download-hero">
+      <a href="https://github.com/toomcis/tomenu-app/releases/latest/download/tomenu.apk"
+         class="btn-download" id="main-download-btn">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span data-i18n="hero.download">Stiahnuť pre Android</span>
+      </a>
+      <div class="download-meta">
+        <span>📱 <span data-i18n="dl.android">Android 8.0+</span></span>
+        <span>· <span data-i18n="dl.free">Úplne zadarmo</span></span>
+        <span>· <span data-i18n="dl.size">~15 MB</span></span>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:4px;flex-wrap:wrap;">
+        <a href="/api" class="btn-ghost" data-i18n="hero.api_btn">Pre vývojárov →</a>
+        <a href="https://github.com/toomcis/tomenu-app/releases" class="btn-ghost" style="font-size:12px;" data-i18n="dl.all_releases">Všetky verzie</a>
+      </div>
+    </div>
+  </header>
 
   <!-- ── HOW IT WORKS ── -->
   <section id="how">
-    <div class="section-label" data-i18n="how.label">how it works</div>
-    <h2 data-i18n="how.title">Open. Search. Eat.</h2>
+    <div class="section-eyebrow" data-i18n="how.eyebrow">Ako to funguje</div>
+    <h2 data-i18n="how.title">Tri kroky. Žiadna registrácia.</h2>
+    <p class="section-sub" data-i18n="how.sub">Nemusíte vytvárať účet, zadávať kartu ani nič inštalovať zo zhoda. Stiahnete APK a ste hneď v obraze.</p>
     <div class="steps">
       <div class="step">
         <div class="step-num">01</div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="step1.title">Open the app</div>
-          <div class="step-desc"  data-i18n="step1.desc">No sign-up required. Guest mode works from day one. Your location sorts nearby restaurants automatically.</div>
+        <div>
+          <div class="step-title" data-i18n="step1.title">Stiahnite aplikáciu</div>
+          <div class="step-desc"  data-i18n="step1.desc">Kliknite na tlačidlo vyššie a stiahnite APK súbor. Pri inštalácii Android môže požiadať o povolenie inštalácie z neznámych zdrojov — to je v poriadku, je to štandardný postup pre aplikácie mimo Play Store.</div>
         </div>
       </div>
       <div class="step">
         <div class="step-num">02</div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="step2.title">Browse or search</div>
-          <div class="step-desc"  data-i18n="step2.desc">Scroll through today's menus or search a specific dish. Filter by price, allergens, or delivery.</div>
+        <div>
+          <div class="step-title" data-i18n="step2.title">Otvorte a prehliadajte</div>
+          <div class="step-desc"  data-i18n="step2.desc">Aplikácia automaticky nájde reštaurácie vo vašom meste a zoradí ich podľa vzdialenosti. Môžete filtrovať podľa ceny, alergénov, alebo hľadať konkrétne jedlo naprieč všetkými podnikmi.</div>
         </div>
       </div>
       <div class="step">
         <div class="step-num">03</div>
-        <div class="step-content">
-          <div class="step-title" data-i18n="step3.title">Tap and go</div>
-          <div class="step-desc"  data-i18n="step3.desc">Tap an address to open in Maps. Call the restaurant directly. Done.</div>
+        <div>
+          <div class="step-title" data-i18n="step3.title">Vyberte si a choďte</div>
+          <div class="step-desc"  data-i18n="step3.desc">Jedným klepnutím otvoríte adresu v Mapách alebo zavoláte priamo do reštaurácie. Hotovo — žiadne ďalšie kroky.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── DOWNLOAD ── -->
-  <section id="download">
-    <div class="section-label" data-i18n="dl.label">download</div>
-    <h2 data-i18n="dl.title">Get ToMenu</h2>
-    <p data-i18n="dl.p">Currently in early access beta. Android APK available directly — no Play Store needed.</p>
-    <div class="download-box">
-      <div class="early-tag" data-i18n="dl.tag">✦ Early Access Beta</div>
-      <h3 data-i18n="dl.box_title">Android APK</h3>
-      <p data-i18n="dl.box_p">Download and install directly. Enable "Install from unknown sources" in your Android settings if prompted.</p>
-      <a id="apk-btn" href="https://github.com/toomcis/tomenu-app/releases/latest/download/tomenu.apk" class="btn-primary" data-i18n="dl.btn">↓ Download APK</a>
-      <div class="download-note" data-i18n="dl.note">Latest release on GitHub · Android 8.0+ required</div>
-      <div class="download-links">
-        <a href="https://github.com/toomcis/tomenu-app/releases" data-i18n="dl.releases">All releases →</a>
-        <span class="sep">·</span>
-        <a href="https://github.com/toomcis/tomenu-app" data-i18n="dl.source">Source code →</a>
+  <!-- ── FEATURES ── -->
+  <section id="features">
+    <div class="section-eyebrow" data-i18n="feat.eyebrow">Čo získate</div>
+    <h2 data-i18n="feat.title">Všetko na výber obeda. Nič navyše.</h2>
+    <p class="section-sub" data-i18n="feat.sub">Sme posadnutí tým, aby ste sa k jedlu dostali čo najrýchlejšie — bez zbytočných kliknutí a registrácií.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📍</div>
+        <div class="feature-title" data-i18n="feat.gps.title">GPS zoradenie</div>
+        <div class="feature-desc"  data-i18n="feat.gps.desc">Reštaurácie sú automaticky zoradené podľa vzdialenosti od vás. Tie najbližšie vždy hore.</div>
       </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title" data-i18n="feat.search.title">Hľadanie jedál</div>
+        <div class="feature-desc"  data-i18n="feat.search.desc">Napíšte „kurací rezeň" a uvidíte ho vo všetkých reštauráciách naraz — s cenou a gramážou.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚗️</div>
+        <div class="feature-title" data-i18n="feat.filter.title">Filtre a alergény</div>
+        <div class="feature-desc"  data-i18n="feat.filter.desc">Filtrujte podľa ceny, váhy, 14 EU alergénov alebo možnosti dovozu. Aj podľa pomeru cena/gramáž.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛵</div>
+        <div class="feature-title" data-i18n="feat.delivery.title">Dovoz jedla</div>
+        <div class="feature-desc"  data-i18n="feat.delivery.desc">Vidíte hneď, ktoré reštaurácie ponúkajú dovoz — ešte predtým, než otvoríte ich menu.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <div class="feature-title" data-i18n="feat.week.title">Celý týždeň</div>
+        <div class="feature-desc"  data-i18n="feat.week.desc">Neplánujte len na dnes. Pozrite si pondelkové menu aj v stredu a naplánujte obed vopred.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-title" data-i18n="feat.notif.title">Upozornenia na obed</div>
+        <div class="feature-desc"  data-i18n="feat.notif.desc">Nastavte si čas a aplikácia vás každý deň upozorní, keď sú menu pripravené. Nikdy nezabudnete na obed.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FYP ── -->
+  <section id="fyp">
+    <div class="section-eyebrow" data-i18n="fyp.eyebrow">Novinka</div>
+    <h2 data-i18n="fyp.title">Aplikácia navrhne jedlo práve pre vás.</h2>
+    <p class="section-sub" data-i18n="fyp.sub">Nová funkcia "Pre Vás" funguje ako osobný kulinársky asistent. Swipujete jedlá — páči sa / nepáči — a aplikácia sa postupne naučí, čo máte radi.</p>
+    <div class="fyp-block">
+      <div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="feature-card" style="border-color:var(--green-dim);">
+            <div class="feature-icon">👈👉</div>
+            <div class="feature-title" data-i18n="fyp.swipe.title">Swipujte jedlá</div>
+            <div class="feature-desc"  data-i18n="fyp.swipe.desc">Potiahnite doprava ak vás jedlo zaujalo, doľava ak nie. Jednoduchšie to nejde.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <div class="feature-title" data-i18n="fyp.learn.title">Aplikácia sa učí</div>
+            <div class="feature-desc"  data-i18n="fyp.learn.desc">Čím viac swipujete, tým lepšie odporúčania dostávate. Žiadne účty ani nastavenia potrebné.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🍽️</div>
+            <div class="feature-title" data-i18n="fyp.open.title">Jedným klepnutím na menu</div>
+            <div class="feature-desc"  data-i18n="fyp.open.desc">Páči sa vám jedlo? Okamžite sa dostanete na stránku reštaurácie s týmto jedlom.</div>
+          </div>
+        </div>
+      </div>
+      <div class="fyp-visual">
+        <div class="fyp-label" data-i18n="fyp.preview.label">Pre vás dnes</div>
+        <div class="swipe-deck" id="swipe-deck">
+          <!-- Cards injected by JS -->
+        </div>
+        <div class="swipe-actions">
+          <button class="swipe-btn swipe-no" id="btn-no" onclick="triggerSwipe('no')" title="Nie, ďakujem">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <button class="swipe-btn swipe-yes" id="btn-yes" onclick="triggerSwipe('yes')" title="Daj mi to!">
+            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </button>
+        </div>
+        <div class="swipe-score">
+          <span class="score-no" id="score-no">0 ✕</span>
+          <span class="score-sep">·</span>
+          <span class="score-yes" id="score-yes">0 ♥</span>
+        </div>
+        <div class="swipe-hint" data-i18n="fyp.preview.hint">← potiahnite alebo kliknite →</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CITIES ── -->
+  <section id="cities">
+    <div class="section-eyebrow" data-i18n="cities.eyebrow">Pokrytie</div>
+    <h2 data-i18n="cities.title">Kde ToMenu funguje?</h2>
+    <p class="section-sub" data-i18n="cities.sub">Momentálne pokrývame Levice. Ďalšie mestá pribúdajú — ak chcete vaše mesto pridať, napíšte nám.</p>
+    <div class="cities-row">
+      <div class="city-pill active"><span class="dot"></span> Levice</div>
+      <div class="city-pill" data-i18n="cities.soon">+ ďalšie čoskoro</div>
     </div>
   </section>
 
   <!-- ── PRIVACY ── -->
   <section id="privacy">
-    <div class="section-label" data-i18n="priv.label">privacy</div>
-    <h2 data-i18n="priv.title">We mean it when we say privacy-first.</h2>
+    <div class="section-eyebrow" data-i18n="priv.eyebrow">Súkromie</div>
+    <h2 data-i18n="priv.title">Vaše dáta sú vaše. Bodka.</h2>
+    <p class="section-sub" data-i18n="priv.sub">Nevyrábame z vás produkt. ToMenu je aplikácia, nie reklamná platforma.</p>
     <div class="privacy-grid">
-      <div class="privacy-item">
-        <span class="priv-icon">✓</span>
-        <span data-i18n="priv.1">No ads, ever. Not in the app, not in the API.</span>
+      <div class="privacy-item"><div class="priv-icon">✓</div><span data-i18n="priv.1">Žiadne reklamy — nikdy. Ani v aplikácii, ani na webe.</span></div>
+      <div class="privacy-item"><div class="priv-icon">✓</div><span data-i18n="priv.2">Účet nie je povinný. Hosťovský režim funguje od prvého spustenia.</span></div>
+      <div class="privacy-item"><div class="priv-icon">✓</div><span data-i18n="priv.3">Zdieľanie dát je vždy dobrovoľné a jasne označené.</span></div>
+      <div class="privacy-item"><div class="priv-icon">✓</div><span data-i18n="priv.4">Vymazanie účtu a všetkých dát — kedykoľvek, okamžite, priamo v aplikácii.</span></div>
+      <div class="privacy-item"><div class="priv-icon">✓</div><span data-i18n="priv.5">Zdrojový kód je verejný (open-source, MIT licencia). Každý si môže overiť, čo aplikácia robí.</span></div>
+    </div>
+  </section>
+
+  <!-- ── DOWNLOAD (bottom) ── -->
+  <section id="download">
+    <div class="section-eyebrow" data-i18n="dl.eyebrow">Stiahnuť</div>
+    <h2 data-i18n="dl.title">Vyskúšajte ToMenu zadarmo.</h2>
+    <p class="section-sub" data-i18n="dl.sub">Funguje na každom Android telefóne (verzia 8.0 a novšia). Inštalácia trvá menej ako minútu.</p>
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;">
+      <a href="https://github.com/toomcis/tomenu-app/releases/latest/download/tomenu.apk"
+         class="btn-download">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span data-i18n="hero.download">Stiahnuť pre Android</span>
+      </a>
+      <div class="download-meta">
+        <span data-i18n="dl.github_note">Najnovšia verzia z GitHub Releases</span>
+        <span>·</span>
+        <a href="https://github.com/toomcis/tomenu-app/releases" style="color:var(--text3);text-decoration:none;" data-i18n="dl.all_releases">Všetky verzie →</a>
       </div>
-      <div class="privacy-item">
-        <span class="priv-icon">✓</span>
-        <span data-i18n="priv.2">No account required. Guest mode works for everything.</span>
-      </div>
-      <div class="privacy-item">
-        <span class="priv-icon">✓</span>
-        <span data-i18n="priv.3">All data sharing is opt-in and clearly labelled.</span>
-      </div>
-      <div class="privacy-item">
-        <span class="priv-icon">✓</span>
-        <span data-i18n="priv.4">Fully open source. MIT licensed. Inspect everything.</span>
-      </div>
-      <div class="privacy-item">
-        <span class="priv-icon">✓</span>
-        <span data-i18n="priv.5">Self-hostable. Run your own backend, keep all data local.</span>
-      </div>
-      <div class="privacy-item">
-        <span class="priv-icon">✓</span>
-        <span data-i18n="priv.6">Delete your account and all your data anytime, instantly.</span>
+      <div class="dev-note" data-i18n="dl.dev_note">
+        💻 <strong style="color:var(--text2);">Pre pokročilých:</strong> ToMenu je open-source a self-hostovateľné. Môžete si spustiť vlastný backend a API na svojom serveri. Zdrojový kód je dostupný na <a href="https://github.com/toomcis/tomenu-app">GitHub</a>.
       </div>
     </div>
   </section>
 
-  <!-- ── FOR DEVELOPERS ── -->
+  <!-- ── API ── -->
   <section id="api">
-    <div class="section-label" data-i18n="api.label">for developers</div>
-    <h2 data-i18n="api.title">There's a REST API too.</h2>
-    <p data-i18n="api.p">ToMenu exposes all menu data via a clean JSON API. Build Telegram bots, office lunch tools, integrations — whatever you want. Keys are free during beta.</p>
+    <div class="section-eyebrow" data-i18n="api.eyebrow">Pre vývojárov</div>
+    <h2 data-i18n="api.title">Existuje aj REST API.</h2>
+    <p class="section-sub" data-i18n="api.sub">Všetky dáta o menu sú dostupné cez čisté JSON API. Stavajte Telegram boty, firemné nástroje, integrátory — čokoľvek. Kľúče sú počas bety zadarmo.</p>
     <div class="api-box">
-      <div class="code-block">GET https://api.tomenu.sk/api/levice/menu
-<span style="color:#60a5fa">Authorization:</span> your_api_key_here</div>
-      <a href="/api" class="btn-ghost" style="margin-top:16px;display:inline-block" data-i18n="api.btn">View full API docs →</a>
+      <div class="code-block"><span class="dim">// Všetky jedlá v Leviciach pre dnes</span>
+GET https://api.tomenu.sk/api/levice/menu
+<span class="key">Authorization:</span> your_api_key_here</div>
+      <a href="/api" class="btn-ghost" data-i18n="api.btn">Zobraziť API dokumentáciu →</a>
     </div>
   </section>
 
   <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-main">
-      <span data-i18n="footer.left">ToMenu beta · <a href="https://github.com/toomcis/tomenu-app">github</a> · made in Levice 🇸🇰</span>
+      <span data-i18n="footer.left">ToMenu beta · <a href="https://github.com/toomcis/tomenu-app">github</a> · vyrobené v Leviciach 🇸🇰</span>
       <span><a href="mailto:contact@tomenu.sk">contact@tomenu.sk</a></span>
     </div>
     <div class="footer-legal">
@@ -220,6 +756,326 @@
 
 </div>
 
+<script>
+// ── Slogan animation ──────────────────────────────────────────────────────────
+const SLOGANS = [
+  'Je to TO menu ktoré potrebuješ',
+  'TO posledné menu ktoré potrebuješ',
+  'Zmodernizuj vyberanie jedla',
+  'Budúcnosť vyberania obedov',
+  'Nájdeš tam TO menu ktoré potrebuješ',
+  'Áno, je tam aj TO Menu',
+  'TO Menu či určite vychutnáš',
+  'Konečne si normálne výber obed',
+  'Daj si TO Menu',
+  'TO Menu si musíš dať!',
+  'TO Menu ti zachutí',
+  'S ToMenu nepotrebuješ žiadne iné menu',
+  'Je to TO Menu',
+  'TO Menu ktoré potrebuješ',
+  'Ja viem že chceš TO Menu',
+  'TO najlepšie menu',
+  'TO Menu ktoré chceš',
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+async function runSloganIntro() {
+  const el = document.getElementById('slogan-text');
+  if (!el) return;
+  const picks = shuffle(SLOGANS).slice(0, 4);
+  const FADE_MS = 800, HOLD_MS = 2400, GAP_MS = 120;
+  const delay = ms => new Promise(r => setTimeout(r, ms));
+
+  async function showSlogan(text) {
+    el.textContent = text;
+    el.classList.add('visible');
+    await delay(HOLD_MS);
+    el.classList.remove('visible');
+    await delay(FADE_MS + GAP_MS);
+  }
+
+  for (let i = 0; i < picks.length - 1; i++) await showSlogan(picks[i]);
+  el.textContent = picks[picks.length - 1];
+  el.classList.add('visible');
+}
+
+// ── Interactive Swipe Demo ────────────────────────────────────────────────────
+// Dish data — Slovak only (demo is always in Slovak, it's a local product)
+const DEMO_DISHES = [
+  { emoji: '🥩', name: 'Sviečková na smotane',        rest: 'Reštaurácia Centrál',  price: '6.90 €' },
+  { emoji: '🍜', name: 'Hovädzí guláš s haluškami',   rest: 'Krčma u Jána',         price: '5.50 €' },
+  { emoji: '🍗', name: 'Vyprážané kuracie stehno',     rest: 'Bistro Slnko',         price: '4.80 €' },
+  { emoji: '🐟', name: 'Grilovaný losos s ryžou',      rest: 'Reštaurácia More',     price: '7.20 €' },
+  { emoji: '🥗', name: 'Cézar šalát s kuracím mäsom', rest: 'Fit&Go',               price: '5.10 €' },
+  { emoji: '🍝', name: 'Špagety Bolognese',            rest: 'Pizzeria Roma',        price: '5.90 €' },
+  { emoji: '🥘', name: 'Bravčový rezeň so zemiakmi',  rest: 'Jedáleň Olympia',      price: '4.50 €' },
+  { emoji: '🍲', name: 'Fazuľová polievka + hlavné',   rest: 'Domáca kuchyňa',      price: '5.20 €' },
+  { emoji: '🌮', name: 'Plnená tortilla so šalátom',   rest: 'Mex&Go',              price: '5.70 €' },
+  { emoji: '🍛', name: 'Kuracie kari s basmati ryžou', rest: 'Spice House',          price: '6.30 €' },
+  { emoji: '🥙', name: 'Grécky gyros s tzatziki',      rest: 'Mediteran',            price: '5.40 €' },
+  { emoji: '🍖', name: 'Pečené bravčové rebierka',     rest: 'BBQ Levice',           price: '7.80 €' },
+  { emoji: '🧆', name: 'Vegetariánsky falafel wrap',   rest: 'Green Bowl',           price: '4.90 €' },
+  { emoji: '🍣', name: 'Sushi set (8 ks) + miso',      rest: 'Sakura',               price: '8.50 €' },
+  { emoji: '🥚', name: 'Omeleta so syrom a šunkou',    rest: 'Raňajky & Obed',      price: '3.90 €' },
+  { emoji: '🍱', name: 'Dnešné menu šéfkuchára',       rest: 'Grand Hotel Lev',      price: '6.60 €' },
+  { emoji: '🫕', name: 'Kapustnica so slaninou',        rest: 'Slovenská krčma',     price: '4.20 €' },
+  { emoji: '🥩', name: 'Steakový burger s hranolkami', rest: 'Burger Brothers',      price: '6.90 €' },
+  { emoji: '🍤', name: 'Vyprážané rybie filé',          rest: 'Neptún',               price: '5.80 €' },
+  { emoji: '🥦', name: 'Tofu stir-fry so zeleninou',   rest: 'Vegan Corner',         price: '5.30 €' },
+];
+
+// Localized badge text — pulled after i18n loads
+function getBadgeText(dir) {
+  if (typeof T !== 'undefined') {
+    return dir === 'yes' ? (T['fyp.badge.yes'] || 'CHCEM!') : (T['fyp.badge.no'] || 'NIE!');
+  }
+  return dir === 'yes' ? 'CHCEM!' : 'NIE!';
+}
+
+let deckQueue   = [];
+let scores      = { yes: 0, no: 0 };
+let isSwiping   = false;
+let dragListeners = null; // track so we can remove them
+
+function shuffleDishes() {
+  const a = [...DEMO_DISHES];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function makeCard(dish) {
+  const el = document.createElement('div');
+  el.className = 'swipe-card';
+  // Badges use localized text at creation time
+  el.innerHTML = `
+    <span class="like-badge">${getBadgeText('yes')}</span>
+    <span class="nope-badge">${getBadgeText('no')}</span>
+    <div class="dish-emoji">${dish.emoji}</div>
+    <div class="dish-name">${dish.name}</div>
+    <div class="dish-rest">${dish.rest}</div>
+    <div class="dish-price">${dish.price}</div>
+  `;
+  return el;
+}
+
+// ── Stack logic ──
+// DOM order: index 0 = bottom (z-index 1), last = top card (z-index 3).
+// CSS uses nth-last-child so the last DOM child is always visually on top.
+// This means: append new card → it's on top. We pre-load 3 cards, last = top.
+
+function initDeck() {
+  const deck = document.getElementById('swipe-deck');
+  if (!deck) return;
+  deck.innerHTML = '';
+  deckQueue = shuffleDishes();
+
+  // Push 3 cards: first pushed = bottom, last pushed = top
+  const visible = deckQueue.splice(0, 3);
+  visible.forEach(dish => deck.appendChild(makeCard(dish)));
+
+  applyStackStyles();
+  attachDrag();
+}
+
+function applyStackStyles() {
+  // Rather than using classes for position, we directly style each card
+  // so there's zero ambiguity. Last child = top.
+  const deck = document.getElementById('swipe-deck');
+  if (!deck) return;
+  const cards = [...deck.querySelectorAll('.swipe-card')];
+  cards.forEach((c, i) => {
+    const fromTop = cards.length - 1 - i; // 0 = top card, 1 = second, 2 = third
+    c.style.zIndex   = cards.length - fromTop;
+    c.style.transform = fromTop === 0
+      ? 'translateX(0) translateY(0) rotate(0deg) scale(1)'
+      : fromTop === 1
+        ? 'scale(0.95) translateY(10px)'
+        : 'scale(0.90) translateY(20px)';
+    c.style.transition = fromTop === 0 ? '' : 'transform 0.3s ease';
+    c.style.opacity = fromTop > 2 ? '0' : '1';
+  });
+}
+
+function getTopCard() {
+  const deck = document.getElementById('swipe-deck');
+  if (!deck) return null;
+  const cards = [...deck.querySelectorAll('.swipe-card')];
+  return cards.length ? cards[cards.length - 1] : null;
+}
+
+function attachDrag() {
+  // Remove previous listeners if any
+  if (dragListeners) {
+    window.removeEventListener('mousemove', dragListeners.move);
+    window.removeEventListener('mouseup',   dragListeners.end);
+    window.removeEventListener('touchmove', dragListeners.move);
+    window.removeEventListener('touchend',  dragListeners.end);
+  }
+
+  const top = getTopCard();
+  if (!top) return;
+
+  let startX = 0, startY = 0, curX = 0, dragging = false;
+
+  function onStart(e) {
+    if (isSwiping) return;
+    dragging = true;
+    curX = 0;
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+    startY = e.touches ? e.touches[0].clientY : e.clientY;
+    top.style.transition = 'none'; // instant follow during drag
+  }
+
+  function onMove(e) {
+    if (!dragging) return;
+    curX = (e.touches ? e.touches[0].clientX : e.clientX) - startX;
+    const curY = (e.touches ? e.touches[0].clientY : e.clientY) - startY;
+    const rot  = curX * 0.07;
+    top.style.transform = `translateX(${curX}px) translateY(${curY * 0.25}px) rotate(${rot}deg) scale(1)`;
+
+    // Badges
+    const threshold = 45;
+    top.querySelector('.like-badge').style.opacity = curX >  threshold ? Math.min((curX - threshold) / 40, 1) : 0;
+    top.querySelector('.nope-badge').style.opacity = curX < -threshold ? Math.min((-curX - threshold) / 40, 1) : 0;
+
+    // Nudge the card below slightly as top moves
+    const second = getSecondCard();
+    if (second) {
+      const progress = Math.min(Math.abs(curX) / 120, 1);
+      const scale = 0.95 + 0.05 * progress;
+      const ty    = 10  - 10  * progress;
+      second.style.transform  = `scale(${scale}) translateY(${ty}px)`;
+      second.style.transition = 'none';
+    }
+  }
+
+  function onEnd() {
+    if (!dragging) return;
+    dragging = false;
+
+    // Reset badge opacity
+    top.querySelector('.like-badge').style.opacity = 0;
+    top.querySelector('.nope-badge').style.opacity = 0;
+
+    if      (curX >  80) doSwipe('yes');
+    else if (curX < -80) doSwipe('no');
+    else {
+      // Snap back
+      top.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+      top.style.transform  = 'translateX(0) translateY(0) rotate(0deg) scale(1)';
+      const second = getSecondCard();
+      if (second) {
+        second.style.transition = 'transform 0.3s ease';
+        second.style.transform  = 'scale(0.95) translateY(10px)';
+      }
+    }
+    curX = 0;
+  }
+
+  top.addEventListener('mousedown',  onStart);
+  top.addEventListener('touchstart', onStart, { passive: true });
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup',   onEnd);
+  window.addEventListener('touchmove', onMove, { passive: true });
+  window.addEventListener('touchend',  onEnd);
+
+  dragListeners = { move: onMove, end: onEnd };
+}
+
+function getSecondCard() {
+  const deck = document.getElementById('swipe-deck');
+  if (!deck) return null;
+  const cards = [...deck.querySelectorAll('.swipe-card')];
+  return cards.length >= 2 ? cards[cards.length - 2] : null;
+}
+
+function doSwipe(dir) {
+  if (isSwiping) return;
+  isSwiping = true;
+
+  const deck = document.getElementById('swipe-deck');
+  const top  = getTopCard();
+  if (!top) { isSwiping = false; return; }
+
+  // Button pulse
+  const btn = document.getElementById(dir === 'yes' ? 'btn-yes' : 'btn-no');
+  if (btn) { btn.style.transform = 'scale(1.3)'; setTimeout(() => btn.style.transform = '', 200); }
+
+  // Score
+  scores[dir]++;
+  const yesEl = document.getElementById('score-yes');
+  const noEl  = document.getElementById('score-no');
+  if (yesEl) yesEl.textContent = `${scores.yes} ♥`;
+  if (noEl)  noEl.textContent  = `${scores.no} ✕`;
+
+  // Fly out the top card
+  top.style.transition = 'transform 0.38s cubic-bezier(0.4,0,0.8,0.6), opacity 0.38s ease';
+  top.style.transform  = dir === 'yes'
+    ? 'translateX(160%) translateY(-20px) rotate(25deg) scale(1)'
+    : 'translateX(-160%) translateY(-20px) rotate(-25deg) scale(1)';
+  top.style.opacity = '0';
+  top.style.pointerEvents = 'none';
+
+  // Immediately animate the second card up to top position
+  const second = getSecondCard();
+  if (second) {
+    second.style.transition = 'transform 0.35s cubic-bezier(0.34,1.2,0.64,1)';
+    second.style.transform  = 'scale(1) translateY(0)';
+  }
+  // Also nudge third card up to second position
+  const cards = [...deck.querySelectorAll('.swipe-card')];
+  const third = cards.length >= 3 ? cards[cards.length - 3] : null;
+  if (third) {
+    third.style.transition = 'transform 0.35s ease';
+    third.style.transform  = 'scale(0.95) translateY(10px)';
+  }
+
+  setTimeout(() => {
+    top.remove();
+
+    // Add new card at the BOTTOM of the DOM (index 0, visually behind everything)
+    if (deckQueue.length === 0) deckQueue = shuffleDishes();
+    const newDish = deckQueue.shift();
+    const newCard = makeCard(newDish);
+    newCard.style.opacity   = '0';
+    newCard.style.transform = 'scale(0.88) translateY(30px)';
+    newCard.style.zIndex    = '1';
+    deck.insertBefore(newCard, deck.firstChild); // goes to bottom
+
+    // Animate the new bottom card in after a brief moment
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        newCard.style.transition = 'transform 0.4s cubic-bezier(0.34,1.3,0.64,1), opacity 0.3s ease';
+        newCard.style.transform  = 'scale(0.90) translateY(20px)';
+        newCard.style.opacity    = '1';
+      });
+    });
+
+    isSwiping = false;
+    attachDrag(); // re-attach to new top card
+  }, 380);
+}
+
+function triggerSwipe(dir) { doSwipe(dir); }
+
+// ── Single unified init ───────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  initDeck();
+  setTimeout(runSloganIntro, 300);
+});
+
+</script>
 <script src="script.js"></script>
 </body>
 </html>

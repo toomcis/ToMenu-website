@@ -1,14 +1,14 @@
-const SUPPORTED_LANGS = ['en', 'sk', 'cs'];
-let currentLang = 'en';
+const SUPPORTED_LANGS = ['sk', 'en', 'cs'];
+let currentLang = 'sk';
 let T = {};
 
 function detectLang() {
   const saved = localStorage.getItem('tomenu_lang');
   if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
-  const browser = (navigator.language || 'en').toLowerCase();
-  if (browser.startsWith('sk')) return 'sk';
+  const browser = (navigator.language || 'sk').toLowerCase();
   if (browser.startsWith('cs')) return 'cs';
-  return 'en';
+  if (browser.startsWith('en')) return 'en';
+  return 'sk';
 }
 
 async function loadLang(lang) {
@@ -19,10 +19,10 @@ async function loadLang(lang) {
     currentLang = lang;
     localStorage.setItem('tomenu_lang', lang);
   } catch {
-    if (lang !== 'en') {
-      const res = await fetch('locales/en.json');
+    if (lang !== 'sk') {
+      const res = await fetch('locales/sk.json');
       T = await res.json();
-      currentLang = 'en';
+      currentLang = 'sk';
     }
   }
 }
@@ -39,8 +39,8 @@ function applyTranslations() {
 }
 
 async function toggleLang() {
-  const cycle = { en: 'sk', sk: 'cs', cs: 'en' };
-  await loadLang(cycle[currentLang] || 'en');
+  const cycle = { sk: 'en', en: 'cs', cs: 'sk' };
+  await loadLang(cycle[currentLang] || 'sk');
   applyTranslations();
 }
 
