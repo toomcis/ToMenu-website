@@ -1,25 +1,12 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ToMenu API — REST API pre obedové menu reštaurácií</title>
-<meta name="description" content="ToMenu REST API — získajte obedové menu slovenských reštaurácií ako štruktúrovaný JSON. Filtrovanie podľa mesta, dňa, alergénov, ceny a dovozu. Zadarmo počas bety.">
-<meta name="keywords" content="ToMenu API, REST API, obedové menu API, reštaurácie API, Slovensko, lunch menu JSON">
-<meta name="author" content="ToMenu">
+<title>ToMenu API — Dokumentácia pre vývojárov</title>
+<meta name="description" content="Oficiálna API dokumentácia ToMenu. REST API pre prístup k obedovým menu reštaurácií na Slovensku.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://tomenu.sk/api">
-<meta property="og:type"        content="website">
-<meta property="og:url"         content="https://tomenu.sk/api">
-<meta property="og:title"       content="ToMenu API — REST API pre obedové menu reštaurácií">
-<meta property="og:description" content="Filtrovanie podľa mesta, dňa, alergénov, ceny a dovozu. Čistý JSON. Zadarmo počas bety.">
-<meta property="og:image"       content="https://tomenu.sk/og-image.png">
-<meta property="og:locale"      content="sk_SK">
-<meta property="og:site_name"   content="ToMenu">
-<meta name="twitter:card"        content="summary_large_image">
-<meta name="twitter:title"       content="ToMenu API — Obedové menu ako JSON">
-<meta name="twitter:description" content="REST API pre obedové menu slovenských reštaurácií. Zadarmo počas bety.">
-<meta name="twitter:image"       content="https://tomenu.sk/og-image.png">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -29,7 +16,7 @@
 
 <div id="beta-bar">
   <span class="dot"></span>
-  <span data-i18n="beta.bar">ToMenu is currently in beta — endpoints and response shapes may change</span>
+  <span data-i18n="beta.bar">namenu+ is currently in beta — endpoints and response shapes may change</span>
 </div>
 
 <button id="lang-toggle" onclick="toggleLang()">EN</button>
@@ -37,7 +24,7 @@
 <div class="page-wrap">
   <aside class="toc">
     <div class="toc-title" data-i18n="toc.title">On this page</div>
-    <a href="#what"      data-i18n="toc.what">What is ToMenu</a>
+    <a href="#what"      data-i18n="toc.what">What is namenu+</a>
     <a href="#auth"      data-i18n="toc.auth">Authentication</a>
     <a href="#endpoints" data-i18n="toc.endpoints">Endpoints</a>
     <div class="toc-divider"></div>
@@ -49,11 +36,11 @@
 
       <header>
         <div class="logo-row">
-          <span class="logo-mark">ToMenu</span>
+          <span class="logo-mark">namenu+</span>
           <span class="beta-pill">Early Access Beta</span>
         </div>
         <h1 data-i18n="hero.title">Lunch menus,<br><span class="accent">structured &amp; accessible.</span></h1>
-        <p class="tagline" data-i18n="hero.tagline">ToMenu scrapes daily lunch menus from Slovak restaurants and exposes them via a clean REST API. Filter by city, day, allergens, price, delivery — and build things on top.</p>
+        <p class="tagline" data-i18n="hero.tagline">namenu+ scrapes daily lunch menus from Slovak restaurants and exposes them via a clean REST API. Filter by city, day, allergens, price, delivery — and build things on top.</p>
         <div class="cta-row">
           <a href="#access"    class="btn-primary" data-i18n="hero.cta_primary">↗ Get early access</a>
           <a href="#endpoints" class="btn-ghost"   data-i18n="hero.cta_secondary">View endpoints</a>
@@ -62,8 +49,8 @@
 
       <section id="what">
         <div class="section-label" data-i18n="what.label">overview</div>
-        <h2 data-i18n="what.title">What is ToMenu?</h2>
-        <p data-i18n="what.p1">ToMenu aggregates daily lunch menus published on <a href="https://tomenu.sk" style="color:var(--text2)">tomenu.sk</a> and other sources into a structured, queryable API. Instead of manually checking restaurant websites, you get clean JSON with dish names, prices, allergens, nutritional info, and delivery availability.</p>
+        <h2 data-i18n="what.title">What is namenu+?</h2>
+        <p data-i18n="what.p1">namenu+ aggregates daily lunch menus published on <a href="https://namenu.sk" style="color:var(--text2)">namenu.sk</a> and other sources into a structured, queryable API. Instead of manually checking restaurant websites, you get clean JSON with dish names, prices, allergens, nutritional info, and delivery availability.</p>
         <p data-i18n="what.p2">Currently covering <strong style="color:var(--text)">Levice, Slovakia</strong> with more cities being added as the project grows. The full week's menu is scraped every day — so you can query Monday's menu on a Wednesday.</p>
         <div class="feature-grid">
           <div class="feature-card">
@@ -96,7 +83,7 @@
         <div class="auth-box">
           <div class="auth-title" data-i18n="auth.box_title">Authorization header</div>
           <p data-i18n="auth.box_p">Include your key with every request:</p>
-          <div class="code-block">GET https://api.tomenu.sk/api/levice/menu
+          <div class="code-block">GET https://api.namenuplus.toomcis.eu/api/levice/menu
 <span class="key">Authorization:</span> <span class="val">your_api_key_here</span></div>
         </div>
         <p style="margin-top:16px" data-i18n="auth.p2">Keys are personal and linked to your email. Don't share them. See the <a href="#access" style="color:var(--green)">Access section</a> below to request one.</p>
@@ -105,7 +92,8 @@
       <section id="endpoints">
         <div class="section-label" data-i18n="ep.label">reference</div>
         <h2 data-i18n="ep.title">API Endpoints</h2>
-        <div class="notice" data-i18n="ep.notice">⚠ Base URL: <strong>https://api.tomenu.sk</strong></div>
+        <div class="notice" data-i18n="ep.notice">⚠ Base URL: <strong>https://api.namenuplus.toomcis.eu</strong> — not yet publicly hosted. Keys are issued now so you're ready when the server goes live.</div>
+
         <div class="endpoint-list">
 
           <div class="endpoint">
@@ -140,7 +128,8 @@
 [
   { <span class="key">"date"</span>: <span class="str">"2026-03-09"</span>, <span class="key">"has_data"</span>: <span class="val">true</span>,  <span class="key">"item_count"</span>: <span class="val">182</span> },
   { <span class="key">"date"</span>: <span class="str">"2026-03-10"</span>, <span class="key">"has_data"</span>: <span class="val">true</span>,  <span class="key">"item_count"</span>: <span class="val">176</span> },
-  { <span class="key">"date"</span>: <span class="str">"2026-03-11"</span>, <span class="key">"has_data"</span>: <span class="val">false</span>, <span class="key">"item_count"</span>: <span class="val">0</span>   }
+  { <span class="key">"date"</span>: <span class="str">"2026-03-11"</span>, <span class="key">"has_data"</span>: <span class="val">false</span>, <span class="key">"item_count"</span>: <span class="val">0</span>   },
+  ...
 ]</div>
             </div>
           </div>
@@ -178,6 +167,21 @@
                   <tr><td class="param-name">date</td><td class="param-type">query</td><td class="param-desc" data-i18n="param.date">YYYY-MM-DD, defaults to today</td><td class="param-opt" data-i18n="param.optional">optional</td></tr>
                 </tbody>
               </table>
+              <div class="code-block"><span class="dim">// GET /api/levice/restaurants/restauracia-moja</span>
+{
+  <span class="key">"name"</span>: <span class="str">"Reštaurácia Moja"</span>,
+  <span class="key">"delivery"</span>: <span class="val">true</span>,
+  <span class="key">"address"</span>: <span class="str">"Ul. Sv. Michala 12, Levice"</span>,
+  <span class="key">"menu"</span>: [
+    {
+      <span class="key">"type"</span>: <span class="str">"soup"</span>,
+      <span class="key">"name"</span>: <span class="str">"Paradajková polievka"</span>,
+      <span class="key">"price_eur"</span>: <span class="val">1.40</span>,
+      <span class="key">"allergens"</span>: [<span class="val">1</span>, <span class="val">7</span>],
+      <span class="key">"nutrition"</span>: { <span class="key">"kcal"</span>: <span class="val">180</span>, <span class="key">"protein_g"</span>: <span class="val">4</span> }
+    }
+  ]
+}</div>
             </div>
           </div>
 
@@ -201,6 +205,13 @@
                   <tr><td class="param-name">offset</td><td class="param-type">query</td><td class="param-desc" data-i18n="param.offset">Pagination offset</td><td class="param-opt" data-i18n="param.optional">optional</td></tr>
                 </tbody>
               </table>
+              <div class="code-block"><span class="dim">// GET /api/levice/menu?type=soup&max_price=2.00&exclude_allergens=7</span>
+{
+  <span class="key">"date"</span>: <span class="str">"2026-03-05"</span>,
+  <span class="key">"count"</span>: <span class="val">14</span>,
+  <span class="key">"offset"</span>: <span class="val">0</span>,
+  <span class="key">"results"</span>: [ <span class="dim">...</span> ]
+}</div>
             </div>
           </div>
 
@@ -210,34 +221,16 @@
       <section id="access">
         <div class="section-label" data-i18n="access.label">access</div>
         <h2 data-i18n="access.title">Get API Access</h2>
-        <p data-i18n="access.p">ToMenu is currently in <strong style="color:var(--amber)">early access beta</strong>. Keys are issued manually — send a request email and you'll get a key linked to your address within a day or two.</p>
+        <p data-i18n="access.p">namenu+ is currently in <strong style="color:var(--amber)">early access beta</strong>. Keys are issued manually — send a request email and you'll get a key linked to your address within a day or two.</p>
         <div class="access-box">
           <div class="early-tag" data-i18n="access.tag">✦ Early Access</div>
           <h3 data-i18n="access.box_title">Request your API key</h3>
           <p data-i18n="access.box_p">Tell us what you're building. Keys are free during beta. One key per developer.</p>
           <a id="access-btn" href="#" class="btn-primary" onclick="openMailto(event)" data-i18n="access.btn">✉ Request early access</a>
-          <div class="access-note" data-i18n="access.note">Sends a pre-filled email to contact@tomenu.sk — just hit send.</div>
+          <div class="access-note" data-i18n="access.note">Sends a pre-filled email to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e98a86879d888a9da99d8686848a809ac78c9c">[email&#160;protected]</a> — just hit send.</div>
         </div>
       </section>
 
       <footer>
-        <div class="footer-main">
-          <span data-i18n="footer.left">ToMenu beta · <a href="https://github.com/toomcis/ToMenu-backend">github</a> · made in Levice 🇸🇰</span>
-          <span><a href="mailto:contact@tomenu.sk">contact@tomenu.sk</a></span>
-        </div>
-        <div class="footer-legal">
-          <a href="/privacy">Zásady ochrany súkromia</a>
-          <span class="sep">·</span>
-          <a href="/tos">Podmienky používania</a>
-          <span class="sep">·</span>
-          <a href="/deletion">Vymazanie údajov</a>
-        </div>
-      </footer>
-
-    </div>
-  </div>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+        <span data-i18n="footer.left">namenu+ beta · <a href="https://github.com/toomcis/namenuPlus">github</a> · made in Levice 🇸🇰</span>
+        <span><a href="/cdn-cgi/l/email-protection#402

@@ -24,6 +24,31 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ToMenu",
+  "url": "https://tomenu.sk",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://tomenu.sk/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SiteLinksSearchBox",
+  "url": "https://tomenu.sk",
+  "potentialAction": [{
+    "@type": "SearchAction",
+    "target": "https://tomenu.sk/api",
+    "query-input": "required name=search_term_string"
+  }]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "MobileApplication",
   "name": "ToMenu",
   "description": "ToMenu zbiera obedové menu reštaurácií z celého Slovenska do jednej aplikácie. GPS triedenie, pokročilé filtre, bez reklám, zadarmo.",
@@ -61,7 +86,10 @@
   }
 }
 </script>
-<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.png">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#3d9e5f">
 <meta name="mobile-web-app-capable" content="yes">
